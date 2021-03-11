@@ -9,4 +9,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>GuestbookServlet</display-name>
+    <servlet-name>GuestbookServlet</servlet-name>
+    <servlet-class>com.bitacademy.guestbook.controller.GuestbookServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GuestbookServlet</servlet-name>
+    <url-pattern>/gb</url-pattern>
+  </servlet-mapping>
 </web-app>
