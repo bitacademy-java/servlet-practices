@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.bitacademy.mysite.dao.UserDao;
 import com.bitacademy.mysite.vo.UserVo;
 import com.bitacademy.web.mvc.WebUtil;
 
@@ -20,6 +21,8 @@ public class UserServlet extends HttpServlet {
 		
 		if("joinform".equals(action)) {
 			WebUtil.forward("/WEB-INF/views/user/joinform.jsp", request, response);
+		} else if("joinsuccess".equals(action)) {
+			WebUtil.forward("/WEB-INF/views/user/joinsuccess.jsp", request, response);
 		} else if("join".equals(action)) {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
@@ -32,10 +35,11 @@ public class UserServlet extends HttpServlet {
 			userVo.setPassword(password);
 			userVo.setGender(gender);
 			
-			System.out.println(userVo);
+			new UserDao().insert(userVo);
 			
+			WebUtil.redirect(request.getContextPath() + "/user?a=joinsuccess", request, response);
 		} else {
-			
+			WebUtil.redirect(request.getContextPath(), request, response);
 		}
 	}
 

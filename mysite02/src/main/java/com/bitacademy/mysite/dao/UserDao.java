@@ -25,7 +25,7 @@ public class UserDao {
 			pstmt.setString(1, vo.getName());
 			pstmt.setString(2, vo.getEmail());
 			pstmt.setString(3, vo.getPassword());
-			pstmt.setString(1, vo.getGender());
+			pstmt.setString(4, vo.getGender());
 			
 			int count = pstmt.executeUpdate();
 			
