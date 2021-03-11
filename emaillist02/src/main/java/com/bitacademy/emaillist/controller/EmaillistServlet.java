@@ -3,7 +3,6 @@ package com.bitacademy.emaillist.controller;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bitacademy.emaillist.dao.EmaillistDao;
 import com.bitacademy.emaillist.vo.EmaillistVo;
+import com.bitacademy.web.mvc.WebUtil;
 
 public class EmaillistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +19,7 @@ public class EmaillistServlet extends HttpServlet {
 		String action = request.getParameter("a");
 
 		if("form".equals(action)) {
-			response.getWriter().print("form");
+			WebUtil.forward("/WEB-INF/views/form.jsp", request, response);
 		} else if("add".equals(action)) {
 			response.getWriter().print("add");
 		} else {
@@ -27,8 +27,7 @@ public class EmaillistServlet extends HttpServlet {
 			
 			// forwarding = request dispatch = request extension
 			request.setAttribute("list", list);
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/index.jsp");
-			rd.forward(request, response);
+			WebUtil.forward("/WEB-INF/views/index.jsp", request, response);
 		}
 		
 		
