@@ -23,6 +23,26 @@ public class UserServlet extends HttpServlet {
 			WebUtil.forward("/WEB-INF/views/user/joinform.jsp", request, response);
 		} else if("joinsuccess".equals(action)) {
 			WebUtil.forward("/WEB-INF/views/user/joinsuccess.jsp", request, response);
+		} else if("loginform".equals(action)) {
+			WebUtil.forward("/WEB-INF/views/user/loginform.jsp", request, response);
+		} else if("login".equals(action)) {
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			
+			UserVo vo = new UserVo();
+			vo.setEmail(email);
+			vo.setPassword(password);
+			
+			UserVo authUser = new UserDao().findByEmailAndPassword(vo);
+			if(authUser == null) {
+				request.setAttribute("authResult", "fail");
+				WebUtil.forward("/WEB-INF/views/user/loginform.jsp", request, response);
+				return;	
+			} 			
+			
+			// 인증 처리
+			
+			
 		} else if("join".equals(action)) {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
