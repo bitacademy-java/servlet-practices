@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.bitacademy.mysite.dao.UserDao;
 import com.bitacademy.mysite.vo.UserVo;
@@ -25,6 +26,17 @@ public class UserServlet extends HttpServlet {
 			WebUtil.forward("/WEB-INF/views/user/joinsuccess.jsp", request, response);
 		} else if("loginform".equals(action)) {
 			WebUtil.forward("/WEB-INF/views/user/loginform.jsp", request, response);
+		} else if("logout".equals(action)) {
+			HttpSession session = request.getSession();
+			
+			// 로그아웃 처리
+			if(session != null && session.getAttribute("authUser") != null) {
+				session.removeAttribute("authUser");
+				session.invalidate();
+			}
+			
+			WebUtil.redirect(request.getContextPath(), request, response);
+			
 		} else if("login".equals(action)) {
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
@@ -41,8 +53,12 @@ public class UserServlet extends HttpServlet {
 			} 			
 			
 			// 인증 처리
+			HttpSession session = request.getSession(true);
+			session.setAttribute("authUser", authUser);
 			
-			
+			// 응답
+			WebUtil.redirect(request.getContextPath(), request, response);
+		
 		} else if("join".equals(action)) {
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
