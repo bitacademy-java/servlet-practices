@@ -39,4 +39,14 @@
     <servlet-name>GuestbookServlet</servlet-name>
     <url-pattern>/guestbook</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>BoardServlet</display-name>
+    <servlet-name>BoardServlet</servlet-name>
+    <servlet-class>com.bitacademy.mysite.controller.BoardServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>BoardServlet</servlet-name>
+    <url-pattern>/board</url-pattern>
+  </servlet-mapping>
 </web-app>
