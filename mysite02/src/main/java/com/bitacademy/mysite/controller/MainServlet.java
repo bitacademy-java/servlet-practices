@@ -13,7 +13,24 @@ import com.bitacademy.web.mvc.WebUtil;
 public class MainServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
+	public void init() throws ServletException {
+		String configPath = getServletConfig().getInitParameter("config");
+		System.out.println("init() called - " + configPath);
+		
+		super.init();
+	}
+
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("service() called");
+		super.service(req, resp);
+	}
+
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("doGet() called");
+
 		int visitCount = 0;
 		
 		// 쿠키 읽기
@@ -43,4 +60,12 @@ public class MainServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
+
+	@Override
+	public void destroy() {
+		System.out.println("destory() called!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		super.destroy();
+	}
+	
+	
 }
