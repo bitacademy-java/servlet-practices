@@ -37,7 +37,7 @@
 		<table width=510 border=1>
 			<tr>
 				<td>[<%=count-index++ %>]</td>
-				<td><%=vo.getName() %></td>
+				<td>vo.getName() %></td>
 				<td><%=vo.getRegDate() %></td>
 				<td><a href="<%=request.getContextPath() %>/gb?a=deleteform&no=<%=vo.getNo() %>">삭제</a></td>
 			</tr>
