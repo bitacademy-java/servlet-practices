@@ -70,8 +70,12 @@ public class GuestbookDao {
 		
 		return list;
 	}
-	
+
 	public boolean delete(GuestbookVo vo) {
+		return delete(vo.getNo(), vo.getPassword());
+	}
+	
+	public boolean delete(Long no, String password) {
 		boolean result = false;
 
 		Connection conn = null;
@@ -88,8 +92,8 @@ public class GuestbookDao {
 			pstmt = conn.prepareStatement(sql);
 			
 			// 4. 바인딩
-			pstmt.setLong(1, vo.getNo());
-			pstmt.setString(2, vo.getPassword());
+			pstmt.setLong(1, no);
+			pstmt.setString(2, password);
 			
 			// 5. sql문 실행
 			int count = pstmt.executeUpdate();
@@ -164,7 +168,7 @@ public class GuestbookDao {
 		
 		try {
 			//1. JDBC Driver 로딩
-			Class.forName("com.mysql.cj.jdbc.Driver");
+			Class.forName("com.mysql.jdbc.Driver");
 		
 			//2. 연결하기
 			String url = "jdbc:mysql://localhost:3306/webdb?characterEncoding=utf8&serverTimezone=UTC";

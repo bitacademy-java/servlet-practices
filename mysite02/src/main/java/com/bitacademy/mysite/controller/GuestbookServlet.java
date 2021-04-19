@@ -17,14 +17,34 @@ public class GuestbookServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("a");
-		
-		if("deleteform".equals(action)) {
+		if("add".equals(action)) {
+			String name = request.getParameter("name");
+			String password = request.getParameter("password");
+			String contents = request.getParameter("contents");
 			
+			GuestbookVo vo = new GuestbookVo();
+			vo.setName(name);
+			vo.setPassword(password);
+			vo.setContents(contents);
+			
+			new GuestbookDao().insert(vo);
+			WebUtil.redirect(request.getContextPath() + "/guestbook", request, response);
+		} else if("deleteform".equals(action)) {
+			WebUtil.forward("/WEB-INF/views/guestbook/deleteform.jsp", request, response);		
+		} else if("delete".equals(action)) {
+			String no = request.getParameter("no");
+			String password = request.getParameter("password");
+			
+			new GuestbookDao().delete(Long.parseLong(no), password);
+			WebUtil.redirect(request.getContextPath() + "/guestbook", request, response);
 		} else {
+			/* list */
 			List<GuestbookVo> list = new GuestbookDao().findAll();
+			
 			request.setAttribute("list", list);
+
 			WebUtil.forward("/WEB-INF/views/guestbook/index.jsp", request, response);
-		}
+		}		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
